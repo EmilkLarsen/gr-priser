@@ -11,6 +11,28 @@ SKU_RE = re.compile(r'itemprop="sku" content="([^"]+)"')
 
 
 def fetch_url_list(limit=None):
+    """3-level sitemap: sitemap.xml -> SitemapCollection.xml -> product sitemaps."""
+    meta = get(f"{BASE}/media/sitemap/sitemap.xml")
+    collections = [u for u in sitemap_urls(meta) if "SitemapCollection" in u]
+    urls = []
+    for c in collections[:3]:
+        try:
+            sub = sitemap_urls(get(c))
+        except Exception:
+            continue
+        for sf in sub:
+            try:
+                us = [u for u in sitemap_urls(get(sf)) if "/p/" in u]
+                urls.extend(us)
+            except Exception:
+                continue
+            if limit and len(urls) >= limit:
+                break
+        if limit and len(urls) >= limit:
+            break
+    return urls[:limit] if limit else urls
+
+def _old_fetch(limit=None):
     # meta-index -> actual sitemap files
     meta = get(f"{BASE}/media/sitemap/sitemap.xml")
     files = sitemap_urls(meta)
