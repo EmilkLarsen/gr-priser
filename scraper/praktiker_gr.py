@@ -6,8 +6,10 @@ from common import get, sitemap_urls, sane_price, valid_ean, write_jsonl, scrape
 
 BASE = "https://www.praktiker.gr"
 OUT = "data/latest/praktiker_gr.jsonl"
-PRICE_RE = re.compile(r'itemprop="price" content="([0-9.]+)"')
-SKU_RE = re.compile(r'itemprop="sku" content="([^"]+)"')
+# Markup updated 2026-09-26: itemprop attrs are gone; ld+json Offer now carries
+# "price":1099 next to priceCurrency, and the SKU lives in a JSON "sku" field.
+PRICE_RE = re.compile(r'"priceCurrency"\s*:\s*"EUR"\s*,\s*"price"\s*:\s*([0-9.]+)')
+SKU_RE = re.compile(r'"sku"\s*:\s*"([^"]+)"')
 
 
 def fetch_url_list(limit=None):
@@ -63,6 +65,8 @@ def handle(u, html):
     sk = SKU_RE.search(html)
     t = re.search(r"<title[^>]*>([^<]+)</title>", html)
     name = (t.group(1).split("|")[0].strip() if t else u.rsplit("/", 1)[-1])
+    im = (re.search(r'"image"\s*:\s*\[?"?(https://[^"\]\\]+)', html)
+          or re.search(r'property="og:image"\s+content="([^"]+)"', html))
     return [{
         "chain": "praktiker_gr",
         "country": "gr",
@@ -73,7 +77,7 @@ def handle(u, html):
         "url": u,
         "price": p,
         "in_stock": None,
-        "image": None,
+        "image": im.group(1).strip() if im else None,
     }]
 
 
