@@ -1,5 +1,5 @@
 {
- "date": "2026-09-26",
+ "date": "2026-09-27",
  "total_rows": 32353,
  "chains": {
   "praktiker_gr": {
@@ -7,7 +7,7 @@
    "price_changes": 0,
    "suspicious_changes": 0,
    "expired": 0,
-   "seconds": 15685.7
+   "seconds": 16242.9
   }
  }
 }
