@@ -3,11 +3,11 @@
  "total_rows": 32354,
  "chains": {
   "praktiker_gr": {
-   "products": 31664,
+   "products": 32349,
    "price_changes": 0,
    "suspicious_changes": 0,
    "expired": 0,
-   "seconds": 18000.7
+   "seconds": 411.9
   }
  }
 }
