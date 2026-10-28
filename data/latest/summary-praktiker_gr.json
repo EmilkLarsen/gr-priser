@@ -2,11 +2,11 @@
  "date": "2026-10-27",
  "chains": {
   "praktiker_gr": {
-   "products": 38417,
+   "products": 43687,
    "price_changes": 0,
    "suspicious_changes": 0,
    "expired": 0,
-   "seconds": 18001.8
+   "seconds": 2623.0
   }
  }
 }
