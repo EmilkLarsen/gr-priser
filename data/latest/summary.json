@@ -1,13 +1,13 @@
 {
- "date": "2026-11-09",
+ "date": "2026-11-10",
  "total_rows": 43693,
  "chains": {
   "praktiker_gr": {
-   "products": 43621,
+   "products": 37687,
    "price_changes": 0,
    "suspicious_changes": 0,
    "expired": 0,
-   "seconds": 4604.2
+   "seconds": 18002.1
   }
  }
 }
